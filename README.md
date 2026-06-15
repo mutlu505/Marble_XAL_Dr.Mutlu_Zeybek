@@ -1,18 +1,174 @@
 # Marble_XAL_Dr.Mutlu_Zeybek
 
+#Below is a short, simple Python script to generate Figure 1 (PRISMA 2020 flow diagram) for your paper. 
 
+import matplotlib.pyplot as plt
+import matplotlib.patches as patches
+from matplotlib.path import Path
 
+fig, ax = plt.subplots(1, 1, figsize=(10, 12))
+ax.set_xlim(0, 10)
+ax.set_ylim(0, 14)
+ax.axis("off")
 
+# Box styling
+box_style = dict(
+    boxstyle="round,pad=0.5", facecolor="white", edgecolor="black", linewidth=1.5
+)
+arrow_style = dict(arrowstyle="->", color="black", linewidth=1.5)
 
+# Box 1: Identification
+ax.text(
+    5,
+    13,
+    "Records identified through database searching (n = 287)",
+    ha="center",
+    va="center",
+    fontsize=10,
+    fontweight="bold",
+    bbox=box_style,
+)
+ax.text(
+    5,
+    12.7,
+    "Web of Science: 89 | Scopus: 112 | Google Scholar: 54 | ScienceDirect: 32",
+    ha="center",
+    va="center",
+    fontsize=8,
+    style="italic",
+    bbox=dict(facecolor="white", edgecolor="none"),
+)
 
+# Arrow
+ax.annotate("", xy=(5, 12.2), xytext=(5, 12.55), arrowprops=arrow_style)
 
+# Box 2: After duplicate removal
+ax.text(
+    5,
+    11.7,
+    "Records after duplicate removal (n = 211)",
+    ha="center",
+    va="center",
+    fontsize=10,
+    fontweight="bold",
+    bbox=box_style,
+)
 
+# Arrow
+ax.annotate("", xy=(5, 11.2), xytext=(5, 11.55), arrowprops=arrow_style)
 
+# Box 3: Screened
+ax.text(
+    5,
+    10.7,
+    "Records screened by title/abstract (n = 211)",
+    ha="center",
+    va="center",
+    fontsize=10,
+    fontweight="bold",
+    bbox=box_style,
+)
 
+# Arrow to excluded (right side)
+ax.annotate("", xy=(7.5, 10.2), xytext=(7.5, 10.55), arrowprops=arrow_style)
+ax.text(
+    7.7,
+    10.2,
+    "Records excluded (n = 122)",
+    ha="left",
+    va="center",
+    fontsize=8,
+    bbox=dict(boxstyle="round,pad=0.3", facecolor="#ffe6e6", edgecolor="red"),
+)
+ax.text(7.7, 9.9, "• Not marble/stone: 54", ha="left", va="center", fontsize=7)
+ax.text(
+    7.7, 9.7, "• No quantitative parameters: 38", ha="left", va="center", fontsize=7
+)
+ax.text(7.7, 9.5, "• Non-English w/o abstract: 18", ha="left", va="center", fontsize=7)
+ax.text(7.7, 9.3, "• Conference abstracts only: 12", ha="left", va="center", fontsize=7)
 
+# Arrow down from screened
+ax.annotate("", xy=(5, 9.7), xytext=(5, 10.55), arrowprops=arrow_style)
 
+# Box 4: Full-text assessed
+ax.text(
+    5,
+    9.2,
+    "Full-text articles assessed for eligibility (n = 89)",
+    ha="center",
+    va="center",
+    fontsize=10,
+    fontweight="bold",
+    bbox=box_style,
+)
 
+# Arrow to excluded (right side)
+ax.annotate("", xy=(7.5, 8.7), xytext=(7.5, 9.05), arrowprops=arrow_style)
+ax.text(
+    7.7,
+    8.7,
+    "Full-text excluded (n = 45)",
+    ha="left",
+    va="center",
+    fontsize=8,
+    bbox=dict(boxstyle="round,pad=0.3", facecolor="#ffe6e6", edgecolor="red"),
+)
+ax.text(7.7, 8.45, "• No optimization method: 19", ha="left", va="center", fontsize=7)
+ax.text(7.7, 8.25, "• Pure quarrying focus: 14", ha="left", va="center", fontsize=7)
+ax.text(7.7, 8.05, "• Duplicate reporting: 7", ha="left", va="center", fontsize=7)
+ax.text(
+    7.7,
+    7.85,
+    "• Insufficient method description: 5",
+    ha="left",
+    va="center",
+    fontsize=7,
+)
 
+# Arrow down from full-text
+ax.annotate("", xy=(5, 8.2), xytext=(5, 9.05), arrowprops=arrow_style)
+
+# Box 5: Included
+ax.text(
+    5,
+    7.7,
+    "Studies included in synthesis (n = 44)",
+    ha="center",
+    va="center",
+    fontsize=10,
+    fontweight="bold",
+    bbox=dict(
+        boxstyle="round,pad=0.5", facecolor="#e6ffe6", edgecolor="green", linewidth=2
+    ),
+)
+
+# Sub-boxes for breakdown
+ax.text(
+    5, 7.2, "├── Core marble/stone processing: 32", ha="center", va="center", fontsize=9
+)
+ax.text(
+    5,
+    6.9,
+    "└── Contextual (methodological inspiration): 12",
+    ha="center",
+    va="center",
+    fontsize=9,
+)
+
+# Title
+ax.text(
+    5,
+    13.5,
+    "Figure 1: PRISMA 2020 Flow Diagram",
+    ha="center",
+    va="center",
+    fontsize=12,
+    fontweight="bold",
+)
+
+plt.tight_layout()
+plt.savefig("figure1_prisma_flow.png", dpi=300, bbox_inches="tight")
+plt.show()
 
 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
