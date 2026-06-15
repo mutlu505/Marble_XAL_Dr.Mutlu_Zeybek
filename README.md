@@ -169,6 +169,150 @@ ax.text(
 plt.tight_layout()
 plt.savefig("figure1_prisma_flow.png", dpi=300, bbox_inches="tight")
 plt.show()
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+#Simple Python Code for Figure 2: XAI Framework Architecture Diagram
+
+import matplotlib.pyplot as plt
+import matplotlib.patches as patches
+from matplotlib.patches import FancyBboxPatch, FancyArrowPatch
+import numpy as np
+
+fig, ax = plt.subplots(1, 1, figsize=(14, 10))
+ax.set_xlim(0, 10)
+ax.set_ylim(0, 12)
+ax.axis('off')
+
+# Colors
+color_layer1 = '#E8F4F8'  # Light blue - Data
+color_layer2 = '#FFF4E6'  # Light orange - Prediction
+color_layer3 = '#E8F8E8'  # Light green - Explanation
+arrow_color = '#333333'
+
+# ============================================================
+# LAYER 1: DATA ACQUISITION (Bottom)
+# ============================================================
+y1 = 1.0
+box1 = FancyBboxPatch((1.5, y1), 7, 2.2, boxstyle="round,pad=0.1",
+                       facecolor=color_layer1, edgecolor='#2C7FB8', linewidth=2)
+ax.add_patch(box1)
+ax.text(5, y1 + 1.8, 'LAYER 1: DATA ACQUISITION & FEATURE ENGINEERING', 
+        ha='center', va='center', fontsize=12, fontweight='bold', color='#2C7FB8')
+ax.text(5, y1 + 1.0, '• Sensor data (current, speed, vibration)', 
+        ha='center', va='center', fontsize=10)
+ax.text(5, y1 + 0.5, '• Material properties (UCS, hardness, abrasivity)', 
+        ha='center', va='center', fontsize=10)
+ax.text(5, y1 + 0.0, '• Environmental conditions (slurry density, temperature)', 
+        ha='center', va='center', fontsize=10)
+
+# ============================================================
+# Arrow: Layer 1 → Layer 2
+# ============================================================
+ax.annotate('', xy=(5, 4.2), xytext=(5, 3.3),
+            arrowprops=dict(arrowstyle='->', lw=2, color=arrow_color))
+
+# ============================================================
+# LAYER 2: PREDICTIVE MODEL (Middle)
+# ============================================================
+y2 = 4.5
+box2 = FancyBboxPatch((1.5, y2), 7, 2.2, boxstyle="round,pad=0.1",
+                       facecolor=color_layer2, edgecolor='#E67E22', linewidth=2)
+ax.add_patch(box2)
+ax.text(5, y2 + 1.8, 'LAYER 2: PREDICTIVE MODEL (XGBoost)', 
+        ha='center', va='center', fontsize=12, fontweight='bold', color='#E67E22')
+ax.text(5, y2 + 1.0, 'Multi-task prediction (separate models, shared features)', 
+        ha='center', va='center', fontsize=10)
+ax.text(5, y2 + 0.5, '• Specific Energy (kWh/m²)  • Wire Wear (mm/m²)  • Surface Quality (Ra)', 
+        ha='center', va='center', fontsize=10)
+ax.text(5, y2 + 0.0, '5-fold cross-validation | Bayesian hyperparameter tuning', 
+        ha='center', va='center', fontsize=9, style='italic')
+
+# ============================================================
+# Arrow: Layer 2 → Layer 3
+# ============================================================
+ax.annotate('', xy=(5, 7.7), xytext=(5, 6.8),
+            arrowprops=dict(arrowstyle='->', lw=2, color=arrow_color))
+
+# ============================================================
+# LAYER 3: EXPLANATIONS (Top)
+# ============================================================
+y3 = 8.0
+box3 = FancyBboxPatch((0.5, y3), 9, 3.5, boxstyle="round,pad=0.1",
+                       facecolor=color_layer3, edgecolor='#27AE60', linewidth=2)
+ax.add_patch(box3)
+ax.text(5, y3 + 3.1, 'LAYER 3: EXPLAINABILITY (SHAP + Counterfactuals)', 
+        ha='center', va='center', fontsize=12, fontweight='bold', color='#27AE60')
+
+# Sub-box 3A: Global Explanation
+sub1 = FancyBboxPatch((1.0, y3 + 1.5), 2.5, 1.3, boxstyle="round,pad=0.05",
+                       facecolor='white', edgecolor='#27AE60', linewidth=1.5)
+ax.add_patch(sub1)
+ax.text(2.25, y3 + 2.2, '3A: GLOBAL', ha='center', va='center', fontsize=9, fontweight='bold')
+ax.text(2.25, y3 + 1.9, 'Feature Importance', ha='center', va='center', fontsize=8)
+ax.text(2.25, y3 + 1.7, 'Summary Plot', ha='center', va='center', fontsize=8, style='italic')
+
+# Sub-box 3B: Local Explanation
+sub2 = FancyBboxPatch((3.8, y3 + 1.5), 2.5, 1.3, boxstyle="round,pad=0.05",
+                       facecolor='white', edgecolor='#27AE60', linewidth=1.5)
+ax.add_patch(sub2)
+ax.text(5.05, y3 + 2.2, '3B: LOCAL', ha='center', va='center', fontsize=9, fontweight='bold')
+ax.text(5.05, y3 + 1.9, 'Instance Attribution', ha='center', va='center', fontsize=8)
+ax.text(5.05, y3 + 1.7, 'For each slab', ha='center', va='center', fontsize=8, style='italic')
+
+# Sub-box 3C: Counterfactual
+sub3 = FancyBboxPatch((6.6, y3 + 1.5), 2.5, 1.3, boxstyle="round,pad=0.05",
+                       facecolor='white', edgecolor='#27AE60', linewidth=1.5)
+ax.add_patch(sub3)
+ax.text(7.85, y3 + 2.2, '3C: COUNTERFACTUAL', ha='center', va='center', fontsize=9, fontweight='bold')
+ax.text(7.85, y3 + 1.9, 'Actionable Changes', ha='center', va='center', fontsize=8)
+ax.text(7.85, y3 + 1.7, 'DiCE Optimization', ha='center', va='center', fontsize=8, style='italic')
+
+# Sub-box 3D: Uncertainty
+sub4 = FancyBboxPatch((2.25, y3 + 0.1), 5.5, 1.0, boxstyle="round,pad=0.05",
+                       facecolor='white', edgecolor='#27AE60', linewidth=1.5)
+ax.add_patch(sub4)
+ax.text(5, y3 + 0.6, '3D: PREDICTION INTERVALS (Quantile Regression | Risk-aware)', 
+        ha='center', va='center', fontsize=9)
+
+# ============================================================
+# HUMAN-IN-THE-LOOP (Sidebar)
+# ============================================================
+side_x = 8.8
+side_y = 1.5
+sidebox = FancyBboxPatch((side_x, side_y), 1.0, 2.8, boxstyle="round,pad=0.05",
+                          facecolor='#F0F0F0', edgecolor='#7F8C8D', linewidth=1.5, alpha=0.7)
+ax.add_patch(sidebox)
+ax.text(side_x + 0.5, side_y + 2.4, 'HITL', ha='center', va='center', fontsize=9, fontweight='bold', rotation=90)
+ax.text(side_x + 0.5, side_y + 1.2, 'Operator', ha='center', va='center', fontsize=8, rotation=90)
+ax.text(side_x + 0.5, side_y + 0.4, 'Override', ha='center', va='center', fontsize=8, rotation=90)
+
+# Dashed line from Layer 3 to sidebar
+ax.plot([8.8, 8.8], [7.0, 4.3], color='#7F8C8D', linestyle='--', linewidth=1.5, alpha=0.7)
+
+# ============================================================
+# OUTPUT ARROWS (Top)
+# ============================================================
+ax.annotate('', xy=(2.5, 11.8), xytext=(2.5, 11.5),
+            arrowprops=dict(arrowstyle='->', lw=2, color=arrow_color))
+ax.text(2.5, 11.9, 'Operator Dashboard', ha='center', va='center', fontsize=9, fontweight='bold')
+
+ax.annotate('', xy=(5, 11.8), xytext=(5, 11.5),
+            arrowprops=dict(arrowstyle='->', lw=2, color=arrow_color))
+ax.text(5, 11.9, 'PLC Commands', ha='center', va='center', fontsize=9, fontweight='bold')
+
+ax.annotate('', xy=(7.5, 11.8), xytext=(7.5, 11.5),
+            arrowprops=dict(arrowstyle='->', lw=2, color=arrow_color))
+ax.text(7.5, 11.9, 'Logs & Audit', ha='center', va='center', fontsize=9, fontweight='bold')
+
+# ============================================================
+# TITLE
+# ============================================================
+ax.text(5, 11.5, 'Proposed XAI Framework for Marble Processing Optimization', 
+        ha='center', va='center', fontsize=14, fontweight='bold')
+
+plt.tight_layout()
+plt.savefig('figure2_xai_framework.png', dpi=300, bbox_inches='tight')
+plt.show()
 
 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
